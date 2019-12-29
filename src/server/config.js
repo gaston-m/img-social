@@ -4,6 +4,7 @@ const morgan = require ('morgan');
 const multer = require('multer');
 const express = require('express');
 const routes = require ('../routes/index'); 
+const errorHandler = require('errorhandler');
 
 module.exports = app => {
 
@@ -36,6 +37,12 @@ app.use(express.json());
 
 routes(app);
 
+//Static Files
+
+app.use(express.static(path.join(__dirname, '../public')));
+
+//Errorhandler
+if ('develpement' === app.get('env')) { app.use(errorHandler)}
 
     return app;
 };
