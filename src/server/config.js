@@ -13,7 +13,7 @@ module.exports = app => {
     /// Settings
 
   app.set('port', process.env.PORT || 3000);
-  app.set('views', path.join( __dirname, 'views' ));  
+  app.set('views', path.join( __dirname, '../views' ));  
   app.engine('.hbs', exphbs({  // Con esto definimos el motor de Plantillas pero no lo estamnos usando todavia..........
 
     defaultLayout: 'main',
