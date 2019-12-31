@@ -1,7 +1,7 @@
 const express = require ('express');
 const router = express.Router();
-const home = require ('../controlers/home.js');
-const image = require('../controlers/image.js');
+const home = require ('../controllers/home.js');
+const image = require('../controllers/image.js');
 
 
 module.exports = app => {
