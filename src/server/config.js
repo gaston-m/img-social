@@ -40,6 +40,7 @@ routes(app);
 //Static Files
 
 app.use(express.static(path.join(__dirname, '../public')));
+app.use('./favicon.ico', express.static('/favicon.ico'));
 
 //Errorhandler
 if ('develpement' === app.get('env')) { app.use(errorHandler)}
