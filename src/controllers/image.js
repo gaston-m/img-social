@@ -79,9 +79,19 @@ ctrl.create = async (req, res) => {
 
 };
 
-ctrl.like = (req, res) => {
+ctrl.like = async (req, res) => {
 
-   res.send('Like from images');
+   const image = await Image.findOne({ filename: {$regex: req.params.image_id}})
+
+   if (image) {
+      image.likes = image.likes + 1;
+
+      await image.save();
+      res.json({ likes:  image.likes});
+   } else {
+
+      res.status(500).json({ error: 'Error del Servidor: Imagen NO Encontrada'});
+   }
 
 };
 
@@ -103,9 +113,22 @@ ctrl.comment = async (req, res) => {
    }
 };
 
-ctrl.delete = (req, res) => {
+ctrl.delete = async (req, res) => {
 
-   res.send('DELETE FROM iMAGES')
+   const image = await Image.findOne({ filename: { $regex: req.params.image_id}});
+
+   if ( image ) {
+      console.log(image);
+
+      await fs.unlink(path.resolve('./src/public/upload/' + image.filename));
+      await Comment.deleteOne ({ idImage: image._id});
+      await image.remove();
+      res.json(true);
+      res.send('DELETE FROM iMAGES')
+
+   }
+
+   
 
 };
 
