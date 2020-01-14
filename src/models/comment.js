@@ -12,4 +12,15 @@ const Comment = new Schema ({
     gravatar : { type: String }
 });
 
+Comment.virtual('image').set(function (image) {
+
+    this._image = image;
+}).get(function(){
+
+    return this._image;
+
+});
+
+
+
 module.exports = mongoose.model('Comment', Comment )

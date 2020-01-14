@@ -14,7 +14,7 @@ async function commentsCounter (){
 
 async function imageTotalViewsCounter () {
 
-    const result =  Image.aggregate([{$group: {
+    const result = await  Image.aggregate([{$group: {
     _id: '1',
     viewsTotal: {$sum: '$views'}
 
@@ -30,7 +30,7 @@ async function likesTotalCounter () {
     const result = await Image.aggregate([{$group: {
 
         _id: '1',
-        likestotal: {$sum: '$likes'}
+        likesTotal: {$sum: '$likes'}
 
     }}]);
 
