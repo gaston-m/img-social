@@ -1,51 +1,36 @@
-$('#post-comment').hide();
-$('#btn-toggle-comment').click(function(e){
-    e.preventDefault();
-    $('#post-comment').slideToggle();       
-
+$("#post-comment").hide();
+$("#btn-toggle-comment").click(function (e) {
+  e.preventDefault();
+  $("#post-comment").slideToggle();
 });
 
+$("#btn-like").click(function (e) {
+  e.preventDefault();
+  let imageId = $(this).data("id");
+  console.log(imageId);
 
+  $.post("/images/" + imageId + "/likes").done((data) => {
+    console.log(data);
 
-
-$('#btn-like').click(function (e) {
-    e.preventDefault();
-    let imageId = $(this).data('id');
-    console.log(image);
-
-    $.post('/images/' + imageId + '/likes').done(data => {
-        
-        console.log(data);
-    
-        $('.likes-count').text(data.likes);
-    
-    })
+    $(".likes-count").text(data.likes);
+  });
 });
 
-$('#btn-delete').click(function (e) {
-    
-    e.preventDefault();
-    
-    let $this = $(this);
+$("#btn-delete").click(function (e) {
+  e.preventDefault();
 
-    response = confirm('Estas Seguro Que Deseas Eliminar La Imagen??');
-    if (response){
+  let $this = $(this);
 
-        let imageId = $(this).data('id');
-    
+  response = confirm("Estas Seguro Que Deseas Eliminar La Imagen??");
+  if (response) {
+    let imageId = $(this).data("id");
+
     $.ajax({
-
-        url: '/images/' + imageId,
-        type: 'DELETE'
-    })
-    .done( function (result) {
-
-        $this.removeClass('btn-danger').addClass('bg-success text-white');
-        $this.find('i').removeClass('fa-times').addClass('fa-check');
-      
-
-    })
+      url: "/images/" + imageId,
+      type: "DELETE",
+    }).done(function (result) {
+      $this.removeClass("btn-danger").addClass("bg-success text-white");
+      $this.find("i").removeClass("fa-times").addClass("fa-check");
+    });
   }
-})
-
-
+});
